@@ -987,7 +987,7 @@ knitr::include_graphics('images/advanced_qgis/gps_visualize6.png')
 7. Enter the following expression. The following expression displays every 10th point from the original track. Adjust that number for your dataset.
 
 ```
-if(@id % 10 = 0, $geometry, NULL)
+if(@id % 10 = 0, @geometry, NULL)
 ```
 
 ```{r echo=FALSE, fig.align='center', out.width='75%'}
@@ -1244,7 +1244,7 @@ knitr::include_graphics('images/advanced_qgis/aggregate1.png')
 aggregate(
  layer:= 'parcels',
  aggregate:='count',
- expression:=fid
+ expression:="fid"
  )
 ```
 
@@ -1258,14 +1258,14 @@ knitr::include_graphics('images/advanced_qgis/aggregate2.png')
 knitr::include_graphics('images/advanced_qgis/aggregate3.png')
 ```
 
-4. Switch to the **Attributes Form** tab. Select the field ``count`` and choose **Text Edit** as the *Widget Type*. At the **Default Value** field at the bottom, enter the following expression. Note that additional filter value. Here the ``$geometry`` refers to the geometry of the ``parcels`` layer and ``geometry(@parent)`` refers to the geometry of feature from the ``polygons`` layer. Click OK.
+4. Switch to the **Attributes Form** tab. Select the field ``count`` and choose **Text Edit** as the *Widget Type*. At the **Default Value** field at the bottom, enter the following expression. Note that additional filter value. Here the ``@geometry`` refers to the geometry of the ``parcels`` layer and ``geometry(@parent)`` refers to the geometry of feature from the ``polygons`` layer. Click OK.
 
 ```
 aggregate(
  layer:= 'parcels',
  aggregate:='count',
- expression:=fid,
- filter:=intersects($geometry, geometry(@parent))
+ expression:="fid",
+ filter:=intersects(@geometry, geometry(@parent))
  )
 ```
 
@@ -1285,7 +1285,7 @@ aggregate(
  aggregate:='concatenate',
  concatenator:=',',
  expression:=to_string(fid),
- filter:=intersects($geometry, geometry(@parent))
+ filter:=intersects(@geometry, geometry(@parent))
  )
 ```
 
@@ -1309,7 +1309,7 @@ aggregate(
 	layer:=@layer,
 	aggregate:='count',
 	expression:="fid",
-	filter:=touches($geometry, geometry(@parent)))
+	filter:=touches(@geometry, geometry(@parent)))
 ```
 
 ## 6.2 Learn more
